@@ -1,0 +1,113 @@
+# scores = {}
+# try:
+#     with open("scoreboard.txt", "r") as file:
+#         for line in file:
+#             if "-" in line:
+#                 name, score = line.strip().split(" - ")
+#                 scores[name] = int(score)
+# except FileNotFoundError:
+#     pass
+
+
+# import random
+# words=["apple","orange","banana","watermelon"]
+# name=input(f"enter your name: ")
+# print(f"welcom {name} ready for play hangman game!")
+# word=random.choice(words)
+# guesses=''
+# turns=7
+# win=False
+# while turns>0:
+#     guess=input(f"you have {turns} turns guess any alphabet: ").lower()
+#     guesses += guess
+#     missed=0
+#     for char in word:
+#         if char in guesses:
+#             print(f"{char} ",end="")
+#         else:
+#             print("_ ",end="")
+#             missed+=1
+#     print()
+#     if missed == 0:
+#         print("congratulations you guessed the word")
+#         win=True
+#         break
+#     if guess not in word:
+#             turns -= 1
+#             print("Wrong guess.")
+#             print(f"You have {turns} turns left.")
+
+#             if turns == 0:
+#                 print(f"Game Over. The word was: {word}")
+#                 break
+
+# if win:
+#     scores[name] = scores.get(name, 0) + 1
+#     print(f"{name}, your new score is {scores[name]}")
+# else:
+#     print(f"{name}, your score remains {scores.get(name, 0)}")
+
+# with open("scoreboard.txt", "w") as file:
+#     for player, score in scores.items():
+#         file.write(f"{player} : {score}\n")
+
+
+
+import random
+
+# Load scores
+scores = {}
+try:
+    with open("scoreboard.txt", "r") as file:
+        for line in file:
+            if ":" in line:
+                name, score = line.strip().split(" : ")
+                scores[name] = int(score)
+except FileNotFoundError:
+    print('FileNotFoundError')
+
+words = ["apple", "orange", "banana", "watermelon"]
+name = input("Enter your name: ").strip()  # Strip spaces from input
+print(f"Welcome {name}, ready to play hangman game!")
+
+word = random.choice(words)
+guesses = ''
+turns = 7
+win = False
+
+while turns > 0:
+    guess = input(f"You have {turns} turns. Guess any alphabet: ").lower()
+    guesses += guess
+    missed = 0
+
+    for char in word:
+        if char in guesses:
+            print(f"{char} ", end="")
+        else:
+            print("_ ", end="")
+            missed += 1
+    print()
+
+    if missed == 0:
+        print("Congratulations, you guessed the word!")
+        win = True
+        break
+
+    if guess not in word:
+        turns -= 1
+        print("Wrong guess.")
+        print(f"You have {turns} turns left.")
+        if turns == 0:
+            print(f"Game Over. The word was: {word}")
+            break
+
+if win:
+    scores[name] = scores.get(name, 0) + 1
+    print(f"{name}, your new score is {scores[name]}")
+else:
+    print(f"{name}, your score remains {scores.get(name, 0)}")
+
+# Save scores - use same delimiter as read
+with open("scoreboard.txt", "w") as file:
+    for player, score in scores.items():
+        file.write(f"{player} : {score}\n")

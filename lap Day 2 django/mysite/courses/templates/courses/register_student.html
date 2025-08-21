@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Register Student</title>
+</head>
+<body>
+  <h1>Register Student</h1>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+  </form>
+
+  {% if saved_student %}
+    <h2>Saved student</h2>
+    <p><strong>Name:</strong> {{ saved_student.name }}</p>
+    <p><strong>Email:</strong> {{ saved_student.email }}</p>
+    <p><strong>Course:</strong> {{ saved_student.course.name }}</p>
+  {% endif %}
+</body>
+</html>

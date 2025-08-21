@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Personal Profile</title>
+  <!-- link external CSS from static files -->
+  <link rel="stylesheet" href="{% static 'profileapp/style.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1 id="profile-name">{{ name }}</h1>
+    <p class="bio">{{ bio }}</p>
+
+    <h3>Skills</h3>
+    <ul>
+      {% for skill in skills %}
+        <li>{{ skill }}</li>
+      {% empty %}
+        <li>No skills listed.</li>
+      {% endfor %}
+    </ul>
+
+    <button id="say-hello">Say Hello</button>
+  </div>
+
+  <!-- include external JS from static files -->
+  <script src="{% static 'profileapp/script.js' %}"></script>
+</body>
+</html>
